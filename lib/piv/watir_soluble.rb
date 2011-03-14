@@ -3,7 +3,7 @@ require 'piv'
 module Piv::WatirSoluble
   include Piv
 
-  def generate_init name
+  def init_watir_soluble name
   	directory 'conf'
     directory 'features' do
     	directory 'support' do
@@ -13,7 +13,9 @@ EOF
     	end
     end
     generate_app name
-    directory 'spec'
+    directory 'lib' do
+      file_content __FILE__, 'watir_helper.rb'
+    end
     file 'cucumber.yml', <<EOF
 default: -r features --tags ~@wip --color --format pretty
 wip: -r features --tags @wip --color --format pretty
